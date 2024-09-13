@@ -1,0 +1,110 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tyk-oss
+  labels:
+    name: tyk-oss
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tyk-redis
+  namespace: flux-system
+spec:
+  releaseName: tyk-redis
+  timeout: 1m0s
+  chartRef:
+    kind: OCIRepository
+    name: tyk-redis
+    namespace: flux-system
+  install:
+    createNamespace: true
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  targetNamespace: tyk-oss
+  interval: 1m0s
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tyk-oss
+  namespace: flux-system
+spec:
+  releaseName: tyk-oss
+  timeout: 1m0s
+  chart:
+    spec:
+      chart: tyk-oss
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: tyk
+        namespace: flux-system
+      version: '1.5.0'
+  install:
+    createNamespace: true
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  targetNamespace: tyk-oss
+  interval: 1m0s
+  values:
+    global:
+      components:
+        operator: true
+      redis:
+        addrs:
+        - tyk-redis-master.tyk-oss.svc:6379
+        passSecret:
+          keyName: redis-password
+          name: tyk-redis
+      secrets:
+        APISecret: 3d045c6800774fe56d66e5cbe3ac873d
+    tyk-gateway:
+      gateway:
+        image:
+          tag: 'v5.4.0'
+        resources:
+          requests:
+            cpu: "1000m"
+     #   replicaCount: 1
+        autoscaling:
+          enabled: true
+          minReplicas: 2
+          maxReplicas: 4
+          averageCpuUtilization: 70  
+         # averageMemoryUtilization: null 
+        extraEnvs:
+        - name: TYK_GW_LOGLEVEL
+          value: "error"
+        extraVolumes:
+        - name: tyk-app-storage
+          persistentVolumeClaim:
+            claimName: tyk-app-claim
+        - name: tyk-policies-storage
+          persistentVolumeClaim:
+            claimName: tyk-policies-claim
+        - name: tyk-middleware-storage
+          persistentVolumeClaim:
+            claimName: tyk-middleware-claim
+        extraVolumeMounts:
+        - name: tyk-app-storage
+          mountPath: /mnt/tyk-gateway/apps
+        - name: tyk-policies-storage
+          mountPath: /mnt/tyk-gateway/policies
+        - name: tyk-middleware-storage
+          mountPath: /mnt/tyk-gateway/middleware                   
+    tyk-operator:
+      image:
+        tag: 'v0.18.0'
+      envFrom:
+        - secretRef:
+            name: tyk-operator-conf
+    # operatorSecret controls if a secret needed to connect to Operator will be created
+    operatorSecret:
+      # enabled if set to true creates secret
+      enabled: true
+      # OSS doesn't have concept of OrgID. But we need to support some features (eg. basic auth key) in OSS
+      # You can set it to any arbitary value
+      orgID: "dg"
