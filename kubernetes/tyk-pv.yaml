@@ -1,13 +1,13 @@
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
+apiVersion: v1
+kind: PersistentVolume
 metadata:
-  name: filestore-rwx
-provisioner: kubernetes.io/filestore
-parameters:
-  # Ensure this is properly configured according to your Filestore instance.
-  # You should use appropriate parameters for your specific Filestore instance.
-  fileShareName: gkerwx
-  volumeName: gke-rwx
-  network: 10.149.212.26	
-mountOptions:
-  - nfsvers=4.1
+  name: filestore-pv
+spec:
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: filestore-rwx
+  nfs:
+    path: /gkerwx  # This should be the path of your file share
+    server: 10.149.212.26	  # The IP address of your Filestore instance
