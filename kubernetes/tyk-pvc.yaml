@@ -10,6 +10,7 @@ spec:
     requests:
       storage: 5Gi
   storageClassName: filestore-rwx  # Adjust according to your GKE cluster's storage class
+  volumeName: filestore-app
 
 ---
 
@@ -25,6 +26,7 @@ spec:
     requests:
       storage: 5Gi
   storageClassName: filestore-rwx  # Adjust according to your GKE cluster's storage class
+  volumeName: filestore-policies
 ---
 
 apiVersion: v1
@@ -39,3 +41,4 @@ spec:
     requests:
       storage: 5Gi
   storageClassName: filestore-rwx  # Adjust according to your GKE cluster's storage class
+  volumeName: filestore-middleware
