@@ -10,6 +10,9 @@ spec:
     requests:
       storage: 5Gi
   storageClassName: ""  # Adjust according to your GKE cluster's storage class
+  selector:
+    matchLabels:
+      volume: shared-filestore  # This should match the label in the PV
 
 ---
 
@@ -25,6 +28,9 @@ spec:
     requests:
       storage: 5Gi
   storageClassName: ""  # Adjust according to your GKE cluster's storage class
+  selector:
+    matchLabels:
+      volume: shared-filestore  # This should match the label in the PV
 
 ---
 
@@ -40,3 +46,6 @@ spec:
     requests:
       storage: 5Gi
   storageClassName: ""  # Adjust according to your GKE cluster's storage class
+  selector:
+    matchLabels:
+      volume: shared-filestore  # This should match the label in the PV
