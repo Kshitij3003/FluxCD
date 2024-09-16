@@ -9,10 +9,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: ""  # Adjust according to your GKE cluster's storage class
-  selector:
-    matchLabels:
-      volume: shared-filestore  # This should match the label in the PV
+  storageClassName: "filestore-rwx"  # Adjust according to your GKE cluster's storage class
 
 ---
 
@@ -27,11 +24,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: ""  # Adjust according to your GKE cluster's storage class
-  selector:
-    matchLabels:
-      volume: shared-filestore  # This should match the label in the PV
-
+  storageClassName: "filestore-rwx"  # Adjust according to your GKE cluster's storage class
 ---
 
 apiVersion: v1
@@ -45,7 +38,4 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: ""  # Adjust according to your GKE cluster's storage class
-  selector:
-    matchLabels:
-      volume: shared-filestore  # This should match the label in the PV
+  storageClassName: "filestore-rwx"  # Adjust according to your GKE cluster's storage class
