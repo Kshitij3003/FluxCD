@@ -25,3 +25,18 @@ spec:
     requests:
       storage: 5Gi
   storageClassName: standard  # Adjust according to your GKE cluster's storage class
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tyk-middleware-claim
+  namespace: tyk-oss
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: standard  # Adjust according to your GKE cluster's storage class
