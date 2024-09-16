@@ -4,7 +4,7 @@ metadata:
   name: filestore-pv
 spec:
   capacity:
-    storage: 5Gi  # Adjust the size according to your Filestore instance
+    storage: 15Gi  # Adjust the size according to your Filestore instance
   accessModes:
     - ReadWriteMany
   nfs:
