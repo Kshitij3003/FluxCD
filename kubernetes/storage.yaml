@@ -1,0 +1,9 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: filestore-rwx
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-standard # or pd-ssd based on your requirements
+mountOptions:
+  - nfsvers=4.1
