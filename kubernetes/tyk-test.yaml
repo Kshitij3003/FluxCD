@@ -70,7 +70,7 @@ spec:
 
 ---
 apiVersion: batch/v1
-kind: Job
+kind: Pod
 metadata:
   name: curl-job
   namespace: tyk-test # Change the namespace if needed
