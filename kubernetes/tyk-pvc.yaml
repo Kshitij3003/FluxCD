@@ -5,7 +5,7 @@ metadata:
   namespace: tyk-oss
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 5Gi
@@ -20,7 +20,7 @@ metadata:
   namespace: tyk-oss
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 5Gi
@@ -35,7 +35,7 @@ metadata:
   namespace: tyk-oss
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 5Gi
