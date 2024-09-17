@@ -69,7 +69,7 @@ spec:
     strip_listen_path: true
 
 ---
-apiVersion: batch/v1
+apiVersion: apps/v1
 kind: Pod
 metadata:
   name: curl-job
