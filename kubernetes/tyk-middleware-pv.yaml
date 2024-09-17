@@ -10,4 +10,4 @@ spec:
   storageClassName: filestore-rwx
   nfs:
     path: /gkerwx  # This should be the path of your file share
-    server: 10.149.212.26	  # The IP address of your Filestore instance
+    server: 10.106.177.210	  # The IP address of your Filestore instance
