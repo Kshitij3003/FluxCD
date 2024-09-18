@@ -79,6 +79,10 @@ spec:
   selector:
     matchLabels:
       app: curl
+template:
+  metadata:
+      labels:
+        app: curl
   spec:
     containers:
     - name: curl-container
