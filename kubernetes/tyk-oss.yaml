@@ -55,7 +55,7 @@ spec:
         operator: true
       redis:
         addrs:
-        - 10.90.196.227:6379
+        - 10.218.112.92:6379
       secrets:
         APISecret: 3d045c6800774fe56d66e5cbe3ac873d
     tyk-gateway:
