@@ -69,21 +69,25 @@ spec:
     strip_listen_path: true
 
 ---
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: curl-pod
   namespace: tyk-test # Change the namespace if needed
 spec:
-  containers:
-  - name: curl-container
-    image: curlimages/curl:7.85.0 # Using a minimal curl image
-    command: ["/bin/sh", "-c"]
-    args:
-    - |
-      for i in $(seq 1 10); do
-        echo "Curl attempt $i";
-        curl -s http://gateway-svc-tyk-oss-tyk-gateway.tyk-oss.svc:8080/httpbin/get;
-        sleep 5;
-      done
-  restartPolicy: Never
+  replicas: 1
+  selector:
+    matchLabels:
+      app: curl
+  spec:
+    containers:
+    - name: curl-container
+      image: curlimages/curl:7.85.0 # Using a minimal curl image
+      command: ["/bin/sh", "-c"]
+      args:
+      - |
+        for i in $(seq 1 10); do
+          echo "Curl attempt $i";
+          curl -s http://gateway-svc-tyk-oss-tyk-gateway.tyk-oss.svc:8080/httpbin/get;
+          sleep 5;
+        done
