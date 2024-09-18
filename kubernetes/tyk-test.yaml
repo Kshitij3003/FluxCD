@@ -90,6 +90,6 @@ spec:
         - |
           for i in $(seq 1 10); do
             echo "Curl attempt $i";
-            curl -s http://gateway-svc-tyk-oss-tyk-gateway.tyk-oss.svc:8080/httpbin/bin/get;
+            curl -s http://gateway-svc-tyk-oss-tyk-gateway.tyk-oss.svc:8080/bin/get;
             sleep 100;
           done
