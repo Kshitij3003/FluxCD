@@ -64,7 +64,7 @@ spec:
   protocol: http
   active: true
   proxy:
-    target_url: http://httpbin.tyk-test.svc:8000
+    target_url: http://httpbin.tyk-test.svc:80
     listen_path: /bin
     strip_listen_path: true
 
