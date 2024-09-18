@@ -72,21 +72,18 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: curl-job
+  name: curl-pod
   namespace: tyk-test # Change the namespace if needed
 spec:
-  template:
-    spec:
-      containers:
-      - name: curl-container
-        image: curlimages/curl:7.85.0 # Using a minimal curl image
-        command: ["/bin/sh", "-c"]
-        args:
-        - |
-          for i in $(seq 1 10); do
-            echo "Curl attempt $i";
-            curl -s http://curl -i gateway-svc-tyk-oss-tyk-gateway.tyk-oss.svc:8080/httpbin/get;
-            sleep 5;
-          done
-      restartPolicy: Never
-  backoffLimit: 0
+  containers:
+  - name: curl-container
+    image: curlimages/curl:7.85.0 # Using a minimal curl image
+    command: ["/bin/sh", "-c"]
+    args:
+    - |
+      for i in $(seq 1 10); do
+        echo "Curl attempt $i";
+        curl -s http://gateway-svc-tyk-oss-tyk-gateway.tyk-oss.svc:8080/httpbin/get;
+        sleep 5;
+      done
+  restartPolicy: Never
