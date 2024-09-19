@@ -5,12 +5,11 @@ metadata:
   namespace: tyk-oss
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi
-  storageClassName: filestore-rwx  # Adjust according to your GKE cluster's storage class
-  volumeName: filestore-app
+  storageClassName: standard  # Adjust according to your GKE cluster's storage class
 
 ---
 
@@ -21,14 +20,12 @@ metadata:
   namespace: tyk-oss
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi
-  storageClassName: filestore-rwx  # Adjust according to your GKE cluster's storage class
-  volumeName: filestore-policies
+  storageClassName: standard  # Adjust according to your GKE cluster's storage class
 ---
-
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -36,9 +33,8 @@ metadata:
   namespace: tyk-oss
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi
-  storageClassName: filestore-rwx  # Adjust according to your GKE cluster's storage class
-  volumeName: filestore-middleware
+  storageClassName: standard  # Adjust according to your GKE cluster's storage class
